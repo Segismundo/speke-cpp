@@ -1,0 +1,13 @@
+* *TODO*
+** TODO Add a test to SPEKE to check if the exception is thrown when bad public key is provided
+** TODO When SpekeSession is put down because of bad key confirmation or HMAC, send the last message with a reason why it disconnected
+** TODO [RETHINK] Better id counter solution in SPEKE
+/Maybe require the client and the server to send a unique id every time?/
+
+The problem can be bypassed by using hash of a public key and the timestamp for an id. If the connection handling is sequential (async listen is called in the listener's handler after the connection is established) there's no way of using the same id by the server multiple times.
+
+
+* Issues
+** TODO SpekeSession crashes when SendMessage is used before it's fully initialized
+Make a queue for outbound messages.
+Or just refactor SpekeSession to use visitor pattern (with std::variant) and handle messages before initialization in a different way.
